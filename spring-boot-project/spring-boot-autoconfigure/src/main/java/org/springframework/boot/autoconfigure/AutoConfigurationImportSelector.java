@@ -179,9 +179,10 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
 	 * @return a list of candidate configurations
 	 */
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) {
+		//加载配置类，也是兼容
 		List<String> configurations = new ArrayList<>(
 				SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader()));
-		ImportCandidates.load(AutoConfiguration.class, getBeanClassLoader()).forEach(configurations::add);
+		ImportCandidates.load(AutoConfiguration.class, getBeanClassLoader()).forEach(configurations::add);//自动配置类从META-INF/spring.factories文件里独立出来
 		Assert.notEmpty(configurations,
 				"No auto configuration classes found in META-INF/spring.factories nor in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. If you "
 						+ "are using a custom packaging, make sure that file is correct.");
