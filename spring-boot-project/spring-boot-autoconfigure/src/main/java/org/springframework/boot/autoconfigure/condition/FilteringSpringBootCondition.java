@@ -110,7 +110,7 @@ abstract class FilteringSpringBootCondition extends SpringBootCondition
 		return Class.forName(className);
 	}
 
-	protected enum ClassNameFilter {
+	protected enum ClassNameFilter {//类名称过滤器，基于是否能被类加载器加载
 
 		PRESENT {
 
@@ -137,7 +137,7 @@ abstract class FilteringSpringBootCondition extends SpringBootCondition
 				classLoader = ClassUtils.getDefaultClassLoader();
 			}
 			try {
-				resolve(className, classLoader);
+				resolve(className, classLoader);//调用类加载器加载
 				return true;
 			}
 			catch (Throwable ex) {
